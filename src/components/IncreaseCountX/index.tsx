@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 
 type Props = {
-  children: string
+  children: React.JSX.Element
   handleClick: () => void
 }
 
@@ -23,7 +23,9 @@ const IncreaseCountX = React.memo<Props>(({ handleClick, children }) => {
   console.log("IncreaseCountX rendered");
 
   return (
-    <button onClick={ handleClick }>Increase countX {children}</button>
+    <button onClick={ handleClick }>Increase countX {
+      children
+    }</button>
   )
 })
 

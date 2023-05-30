@@ -42,7 +42,7 @@ class Counter extends React.Component<Props, State> {
         console.log("Component counter is mounted");
     }
 
-    componentDidUpdate(prevProps: any, prevState: any) {
+    componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>, snapshot?: any): void {
         console.log("Component updated", prevState);
     }
 

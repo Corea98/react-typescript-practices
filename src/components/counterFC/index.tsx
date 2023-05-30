@@ -1,14 +1,19 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import IncreaseCountX from "../IncreaseCountX";
+import { returnTheSameValue } from "../../typescript/tests";
+
 
 
 const Counter = () => {
 
-    const [count, setCount] = useState(0);
+    const [count, setCount] = useState<number>(0);
     const [countX, setCountX] = useState(0);
-    const hiddenCount = useRef(0);
+    const hiddenCount = useRef<number>(0);
 
     useEffect(() => {
+        const value = returnTheSameValue<number, string>(5, "Oscar");
+        console.log(typeof value);
+
         console.log("Component counter is mounted");
 
         return () => {
@@ -66,7 +71,9 @@ const Counter = () => {
 
             <p>Result of calculation + countX is: { expensiveCalculation }</p>
 
-            <IncreaseCountX handleClick={handleIncreaseCountX}>Richard</IncreaseCountX>
+            <IncreaseCountX handleClick={handleIncreaseCountX}>
+                <p>Richard</p>
+            </IncreaseCountX>
         </>
     )
 }
