@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 
 type Props = {
-  children: React.JSX.Element
+  children: React.ReactElement<"p">
   handleClick: () => void
 }
 
