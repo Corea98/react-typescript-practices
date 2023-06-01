@@ -1,14 +1,16 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import IncreaseCountX from "../IncreaseCountX";
 import { returnTheSameValue } from "../../typescript/tests";
-
-
+import withAuth from "../HOC/withAuth";
+import NeedsAuth from "../HOC/needsAuth";
 
 const Counter = () => {
 
     const [count, setCount] = useState<number>(0);
     const [countX, setCountX] = useState(0);
     const hiddenCount = useRef<number>(0);
+
+    const MyComponentWithAuth = withAuth(NeedsAuth);
 
     useEffect(() => {
         const value = returnTheSameValue<number, string>(5, "Oscar");
@@ -74,6 +76,8 @@ const Counter = () => {
             <IncreaseCountX handleClick={handleIncreaseCountX}>
                 <p>Richard</p>
             </IncreaseCountX>
+
+            <MyComponentWithAuth />
         </>
     )
 }

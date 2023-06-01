@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 
 type Props = {
-  children: React.ReactElement<"p">
+  children: React.ReactNode
   handleClick: () => void
 }
 
