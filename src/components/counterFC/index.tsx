@@ -3,14 +3,38 @@ import IncreaseCountX from "../IncreaseCountX";
 import { returnTheSameValue } from "../../typescript/tests";
 import withAuth from "../HOC/withAuth";
 import NeedsAuth from "../HOC/needsAuth";
+import counterStore from "../../stores/CounterStore";
+import { observer } from "mobx-react";
+
+const MyComponentWithAuth = withAuth(NeedsAuth);
+
+const RenderButtons = (
+    {
+        handleIncreaseCounter, 
+        handleDecreaseCounter, 
+        handleFetchFakeValue
+    }: {
+        handleIncreaseCounter: () => void, 
+        handleDecreaseCounter: () => void, 
+        handleFetchFakeValue: () => void
+    }) => {
+    return (
+        <>
+            <button onClick={ handleIncreaseCounter }>Increase counter</button>
+            <button onClick={ handleDecreaseCounter }>Decrease counter</button>
+
+            <br/>
+
+            <button onClick={ handleFetchFakeValue }>Fetch fake value</button>
+        </>
+    )
+}
 
 const Counter = () => {
-
-    const [count, setCount] = useState<number>(0);
+    
     const [countX, setCountX] = useState(0);
     const hiddenCount = useRef<number>(0);
 
-    const MyComponentWithAuth = withAuth(NeedsAuth);
 
     useEffect(() => {
         const value = returnTheSameValue<number, string>(5, "Oscar");
@@ -24,8 +48,9 @@ const Counter = () => {
     }, []);
 
     useEffect(() => {
-        console.log("count variable updated", count);
-    }, [count]);
+        console.log("count variable updated", counterStore.count);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [counterStore.count]);
 
     const expensiveCalculation = useMemo(() => {
         let result = 0;
@@ -41,11 +66,15 @@ const Counter = () => {
     }, [])
 
     const handleIncreaseCounter = () => {
-        setCount(count + 1)
+        counterStore.increment();
     }
 
     const handleDecreaseCounter = () => {
-        setCount(count - 1)
+        counterStore.decrement();
+    }
+
+    const handleFetchFakeValue = () => {
+        counterStore.fetchCountFromServer();
     }
 
     const handleIncreaseHiddenCount = () => {
@@ -61,10 +90,17 @@ const Counter = () => {
     return (
         <>
             <p>This is the counter component</p>
-            <p>{ count }</p>
+            <p>{ counterStore.count }</p>
 
-            <button onClick={ handleIncreaseCounter }>Increase counter</button>
-            <button onClick={ handleDecreaseCounter }>Decrease counter</button>
+            { counterStore.loading ? (
+                <p>Loading value...</p>
+            ) : (
+                <RenderButtons
+                    handleIncreaseCounter={ handleIncreaseCounter }
+                    handleDecreaseCounter={ handleDecreaseCounter }
+                    handleFetchFakeValue={ handleFetchFakeValue }
+                ></RenderButtons>
+            )}
 
             <br/>
 
@@ -82,4 +118,4 @@ const Counter = () => {
     )
 }
 
-export default Counter;
+export default observer(Counter);
