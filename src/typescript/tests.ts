@@ -3,7 +3,7 @@ export function returnTheSameValue<T, T2> (arg: T, n: T2): {arg: T, n: T2} {
         arg,
         n
     };
-
+    
 }
 
 type Animal = {
@@ -50,3 +50,34 @@ executeAsyncFunction()
 .catch(error => {
     console.log(error);
 });
+
+
+
+
+
+type Person = {
+    name: string,
+    lastname: string,
+    age: number
+}
+
+type InputCreatePerson = Omit<Partial<Person>, "name" | "lastname"> & Required<Pick<Person, "name" | "lastname">>;
+    
+
+// Factory Function
+function createPerson({ name, lastname, age }: InputCreatePerson) {
+    const person: Person = {
+        name,
+        lastname,
+        age: age ?? 22
+    }
+
+    return person;
+}
+
+const people: Array<Person> = [
+    createPerson({ name: "Oscar", lastname: "Corea" }),
+    createPerson({ name: "Oscar", lastname: "Corea", age: 25 })
+]
+
+console.log(people);
