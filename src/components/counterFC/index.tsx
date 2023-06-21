@@ -1,56 +1,33 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import IncreaseCountX from "../IncreaseCountX";
-import { returnTheSameValue } from "../../typescript/tests";
 import withAuth from "../HOC/withAuth";
 import NeedsAuth from "../HOC/needsAuth";
 import counterStore from "../../stores/CounterStore";
 import { observer } from "mobx-react";
+import RenderButtons from "./RenderButtons";
 
 const MyComponentWithAuth = withAuth(NeedsAuth);
-
-const RenderButtons = (
-    {
-        handleIncreaseCounter, 
-        handleDecreaseCounter, 
-        handleFetchFakeValue
-    }: {
-        handleIncreaseCounter: () => void, 
-        handleDecreaseCounter: () => void, 
-        handleFetchFakeValue: () => void
-    }) => {
-    return (
-        <>
-            <button onClick={ handleIncreaseCounter }>Increase counter</button>
-            <button onClick={ handleDecreaseCounter }>Decrease counter</button>
-
-            <br/>
-
-            <button onClick={ handleFetchFakeValue }>Fetch fake value</button>
-        </>
-    )
-}
 
 const Counter = () => {
     
     const [countX, setCountX] = useState(0);
     const hiddenCount = useRef<number>(0);
 
-
     useEffect(() => {
-        const value = returnTheSameValue<number, string>(5, "Oscar");
-        console.log(typeof value);
+        // const value = returnTheSameValue<number, string>(5, "Oscar");
+        // console.log(typeof value);
 
-        console.log("Component counter is mounted");
+        // console.log("Component counter is mounted");
 
         return () => {
-            console.log("Component counter will unmount");
+            // console.log("Component counter will unmount");
         }
     }, []);
 
-    useEffect(() => {
-        console.log("count variable updated", counterStore.count);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [counterStore.count]);
+    // useEffect(() => {
+    //     console.log("count variable updated", counterStore.count);
+    // // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [counterStore.count]);
 
     const expensiveCalculation = useMemo(() => {
         let result = 0;
@@ -64,18 +41,6 @@ const Counter = () => {
     const handleIncreaseCountX = useCallback(() => {
         setCountX((value) => value + 1)
     }, [])
-
-    const handleIncreaseCounter = () => {
-        counterStore.increment();
-    }
-
-    const handleDecreaseCounter = () => {
-        counterStore.decrement();
-    }
-
-    const handleFetchFakeValue = () => {
-        counterStore.fetchCountFromServer();
-    }
 
     const handleIncreaseHiddenCount = () => {
         hiddenCount.current += 1;
@@ -95,11 +60,7 @@ const Counter = () => {
             { counterStore.loading ? (
                 <p>Loading value...</p>
             ) : (
-                <RenderButtons
-                    handleIncreaseCounter={ handleIncreaseCounter }
-                    handleDecreaseCounter={ handleDecreaseCounter }
-                    handleFetchFakeValue={ handleFetchFakeValue }
-                ></RenderButtons>
+                <RenderButtons />
             )}
 
             <br/>
