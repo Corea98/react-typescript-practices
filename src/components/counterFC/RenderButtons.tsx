@@ -7,8 +7,16 @@ const RenderButtons = () => {
         counterStore.increment();
     }
 
+    const handleIncreaseCounter2 = () => {
+        counterStore.incrementCount2();
+    }
+
     const handleDecreaseCounter = () => {
         counterStore.decrement();
+    }
+
+    const handleDecreaseCounter2 = () => {
+        counterStore.decrementCount2();
     }
 
     const handleFetchFakeValue = () => {
@@ -19,6 +27,11 @@ const RenderButtons = () => {
         <>
             <button onClick={ handleIncreaseCounter }>Increase counter</button>
             <button onClick={ handleDecreaseCounter }>Decrease counter</button>
+
+            <br/>
+
+            <button onClick={ handleIncreaseCounter2 }>Increase counter 2</button>
+            <button onClick={ handleDecreaseCounter2 }>Decrease counter 2</button>
 
             <br/>
 

@@ -55,7 +55,8 @@ const Counter = () => {
     return (
         <>
             <p>This is the counter component</p>
-            <p>{ counterStore.count }</p>
+            <p>Count: { counterStore.count }</p>
+            <p>Count2: { counterStore.count2 }</p>
 
             { counterStore.loading ? (
                 <p>Loading value...</p>
