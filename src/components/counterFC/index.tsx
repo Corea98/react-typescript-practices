@@ -29,15 +29,6 @@ const Counter = () => {
     // // eslint-disable-next-line react-hooks/exhaustive-deps
     // }, [counterStore.count]);
 
-    const expensiveCalculation = useMemo(() => {
-        let result = 0;
-        for (let i = 0 ; i < 1000000000 ; i++) {
-            result += 1;
-        }
-
-        return (result / 200) + countX;
-    }, [countX]);
-
     const handleIncreaseCountX = useCallback(() => {
         setCountX((value) => value + 1)
     }, [])
@@ -69,7 +60,7 @@ const Counter = () => {
             <button onClick={ handleIncreaseHiddenCount }>Increase HiddenCount</button>
             <button onClick={ handleLogHiddenCount }>Log HiddenCount</button>
 
-            <p>Result of calculation + countX is: { expensiveCalculation }</p>
+            <p>Result of calculation + countX is: { counterStore.expensiveCalculation }</p>
 
             <IncreaseCountX handleClick={handleIncreaseCountX}>
                 <p>Richard</p>
