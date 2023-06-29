@@ -1,44 +1,24 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useContext, useMemo, useRef, useState } from "react";
 import IncreaseCountX from "../IncreaseCountX";
 import withAuth from "../HOC/withAuth";
 import NeedsAuth from "../HOC/needsAuth";
-import counterStore from "../../stores/CounterStore";
+import RootStore from "../../stores";
 import { observer } from "mobx-react";
 import RenderButtons from "./RenderButtons";
+import { RootStoreContext } from "../../context";
 
 const MyComponentWithAuth = withAuth(NeedsAuth);
 
 const Counter = () => {
-    
-    const [countX, setCountX] = useState(0);
-    const hiddenCount = useRef<number>(0);
 
-    useEffect(() => {
-        // const value = returnTheSameValue<number, string>(5, "Oscar");
-        // console.log(typeof value);
-
-        // console.log("Component counter is mounted");
-
-        return () => {
-            // console.log("Component counter will unmount");
-        }
-    }, []);
-
-    // useEffect(() => {
-    //     console.log("count variable updated", counterStore.count);
-    // // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [counterStore.count]);
-
-    const handleIncreaseCountX = useCallback(() => {
-        setCountX((value) => value + 1)
-    }, [])
+    const { counterStore, counterXStore, hiddenCounterStore } = useContext(RootStoreContext) as RootStore;
 
     const handleIncreaseHiddenCount = () => {
-        hiddenCount.current += 1;
+        hiddenCounterStore.incrementHiddenCount();
     }
 
     const handleLogHiddenCount = () => {
-        console.log("HiddenCount is", hiddenCount.current)
+        console.log("HiddenCount is", hiddenCounterStore.hiddenCount)
     }
 
     console.log("Rendering the counter");
@@ -60,9 +40,9 @@ const Counter = () => {
             <button onClick={ handleIncreaseHiddenCount }>Increase HiddenCount</button>
             <button onClick={ handleLogHiddenCount }>Log HiddenCount</button>
 
-            <p>Result of calculation + countX is: { counterStore.expensiveCalculation }</p>
+            <p>Result of calculation + countX is: { counterXStore.expensiveCalculation }</p>
 
-            <IncreaseCountX handleClick={handleIncreaseCountX}>
+            <IncreaseCountX>
                 <p>Richard</p>
             </IncreaseCountX>
 

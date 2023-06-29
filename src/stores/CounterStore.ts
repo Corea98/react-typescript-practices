@@ -1,10 +1,9 @@
 import { action, autorun, computed, flow, makeObservable, observable, reaction, when } from "mobx";
 
-
 const fetchFakeCount: () => Promise<number> = () => {
     return new Promise(resolve => {
         setTimeout(() => {
-            resolve(25)
+            resolve(Math.floor(Math.random() * 100))
         }, 1500);
     })
 }
@@ -80,5 +79,4 @@ class CounterStore {
     }
 }
 
-const counterStore = new CounterStore();
-export default counterStore;
+export default CounterStore;

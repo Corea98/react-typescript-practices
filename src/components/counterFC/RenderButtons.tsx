@@ -1,7 +1,12 @@
 import { observer } from "mobx-react";
-import counterStore from "../../stores/CounterStore";
+import RootStore from "../../stores";
+import { useContext } from "react";
+import { RootStoreContext } from "../../context";
 
 const RenderButtons = () => {
+
+    const rootStore = useContext(RootStoreContext) as RootStore;
+    const { counterStore } = rootStore;
 
     const handleIncreaseCounter = () => {
         counterStore.increment();
