@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Link, useParams, useSearchParams, useNavi
 
 import './App.css';
 import Homepage from './pages';
+import { RootStoreContext, rootStore } from './context';
 
 
 const Users = () => (
@@ -45,39 +46,41 @@ const UserDetail = () => {
 function App() {
 
   return (
-    <div className="App">
-      <BrowserRouter>
-        <nav>
-          <ul>
-            <li>
-              <a href='/users'>Go to users</a>
-            </li>
+    <RootStoreContext.Provider value={ rootStore }>
+      <div className="App">
+        <BrowserRouter>
+          <nav>
+            <ul>
+              <li>
+                <a href='/users'>Go to users</a>
+              </li>
 
-            <li>
-              <Link to='/'>Homepage</Link>
-            </li>
+              <li>
+                <Link to='/'>Homepage</Link>
+              </li>
 
-            <li>            
-              <Link to='/users'>Users list</Link>            
-            </li>
+              <li>            
+                <Link to='/users'>Users list</Link>            
+              </li>
 
-            <li>
-              <Link to='/users/2'>User detail</Link>
-            </li>
-          </ul>
-        </nav>
+              <li>
+                <Link to='/users/2'>User detail</Link>
+              </li>
+            </ul>
+          </nav>
 
-        <Routes>
-          <Route path='/' element={ <Homepage /> } />
+          <Routes>
+            <Route path='/' element={ <Homepage /> } />
 
-          {/* Nested routes */}
-          <Route path='/users/*' element={ <Users /> }/>
+            {/* Nested routes */}
+            <Route path='/users/*' element={ <Users /> }/>
 
-          {/* 404 page */}
-          <Route path='*' element={ <p>404 error page </p>} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+            {/* 404 page */}
+            <Route path='*' element={ <p>404 error page </p>} />
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </RootStoreContext.Provider>
   );
 }
 

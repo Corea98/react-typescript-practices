@@ -1,10 +1,10 @@
-import { action, autorun, computed, flow, makeObservable, observable, reaction, when } from "mobx";
+import { action, autorun, flow, makeObservable, observable, reaction, when } from "mobx";
 
 
 const fetchFakeCount: () => Promise<number> = () => {
     return new Promise(resolve => {
         setTimeout(() => {
-            resolve(25)
+            resolve(Math.floor(Math.random() * 100))
         }, 1500);
     })
 }
@@ -38,17 +38,6 @@ class CounterStore {
         )
     }
 
-    @computed
-    get expensiveCalculation() {
-        console.log("Calculating value");
-        let result = 0;
-        for (let i = 0 ; i < 1000000000 ; i++) {
-            result += 1;
-        }
-
-        return (result / 200) + this.count;
-    }
-
     @action
     increment() {
         this.count++;
@@ -80,5 +69,4 @@ class CounterStore {
     }
 }
 
-const counterStore = new CounterStore();
-export default counterStore;
+export default CounterStore;

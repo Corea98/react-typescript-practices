@@ -1,11 +1,14 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
+import { RootStoreContext } from '../../context';
+import RootStore from '../../stores';
 
 type Props = {
   children: React.ReactNode
-  handleClick: () => void
 }
 
-const IncreaseCountX = React.memo<Props>(({ handleClick, children }) => {
+const IncreaseCountX = React.memo<Props>(({ children }) => {
+
+  const { counterXStore } = useContext(RootStoreContext) as RootStore;
 
   const timer = useRef<ReturnType<typeof setInterval>>();
 
@@ -19,6 +22,10 @@ const IncreaseCountX = React.memo<Props>(({ handleClick, children }) => {
       console.log("Timer destroyed")
     }
   }, [])
+
+  const handleClick = () => {
+    counterXStore.increment();
+  }
 
   console.log("IncreaseCountX rendered");
 
