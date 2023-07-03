@@ -1,4 +1,4 @@
-import { action, autorun, computed, flow, makeObservable, observable, reaction, when } from "mobx";
+import { action, autorun, flow, makeObservable, observable, reaction, when } from "mobx";
 
 const fetchFakeCount: () => Promise<number> = () => {
     return new Promise(resolve => {
@@ -35,17 +35,6 @@ class CounterStore {
             () => this.count2 > 5,
             () => console.log("Mobx: when: Counter 2 is greater than 5"),
         )
-    }
-
-    @computed
-    get expensiveCalculation() {
-        console.log("Calculating value");
-        let result = 0;
-        for (let i = 0 ; i < 1000000000 ; i++) {
-            result += 1;
-        }
-
-        return (result / 200) + this.count;
     }
 
     @action

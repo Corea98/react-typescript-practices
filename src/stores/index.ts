@@ -3,7 +3,6 @@ import CounterStore from "./CounterStore";
 import CounterXStore from "./CounterXStore";
 import HiddenCounterStore from "./HiddenCounterStore";
 
-// This violates the single responsability principle
 
 class RootStore {
 
@@ -15,6 +14,7 @@ class RootStore {
     incrementCounterStore() {
         console.log("CounterX incremented from root")
         this.counterXStore.increment();
+        this.counterStore.increment();
     }
 }
 
