@@ -2,6 +2,20 @@ import { observer } from "mobx-react";
 import RootStore from "../../stores";
 import { useContext } from "react";
 import { RootStoreContext } from "../../context";
+import styled from "styled-components";
+
+const StyledButton = styled.button<{ $primary?: boolean }>`
+    padding: 7px 10px;
+    outline: none;
+    color: ${ props => props.$primary ? "red" : "yellow" };
+    background: black;
+    cursor: pointer;
+
+    &:hover {
+        background: white;
+        color: black;
+    }
+`;
 
 const RenderButtons = () => {
 
@@ -30,17 +44,17 @@ const RenderButtons = () => {
 
     return (
         <>
-            <button onClick={ handleIncreaseCounter }>Increase counter</button>
-            <button onClick={ handleDecreaseCounter }>Decrease counter</button>
+            <StyledButton $primary onClick={ handleIncreaseCounter }>Increase counter</StyledButton>
+            <StyledButton onClick={ handleDecreaseCounter }>Decrease counter</StyledButton>
 
             <br/>
 
-            <button onClick={ handleIncreaseCounter2 }>Increase counter 2</button>
-            <button onClick={ handleDecreaseCounter2 }>Decrease counter 2</button>
+            <StyledButton onClick={ handleIncreaseCounter2 }>Increase counter 2</StyledButton>
+            <StyledButton onClick={ handleDecreaseCounter2 }>Decrease counter 2</StyledButton>
 
             <br/>
 
-            <button onClick={ handleFetchFakeValue }>Fetch fake value</button>
+            <StyledButton onClick={ handleFetchFakeValue }>Fetch fake value</StyledButton>
         </>
     )
 }

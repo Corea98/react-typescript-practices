@@ -1,4 +1,4 @@
-import { action, autorun, makeObservable, observable } from "mobx";
+import { action, autorun, makeObservable, observable, runInAction } from "mobx";
 
 class CounterXStore {
     @observable countX: number = 0;
@@ -14,12 +14,17 @@ class CounterXStore {
                 result += 1;
             }
 
-            this.expensiveCalculation = (result / 200) + this.countX;
+            const newValue = (result / 200) + this.countX;
+
+            runInAction(() => {
+                this.expensiveCalculation = newValue;
+            })
         })
     }
 
     @action
     increment() {
+        console.log("CountX incremented")
         this.countX++;
     }
 
