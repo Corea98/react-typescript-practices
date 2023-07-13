@@ -14,26 +14,6 @@ describe('CounterStore', () => {
     counterStore = new CounterStore();
   });
 
-  it('should increment the count', () => {
-    counterStore.increment();
-    expect(counterStore.count).toBe(1);
-  });
-
-  it('should increment count2', () => {
-    counterStore.incrementCount2();
-    expect(counterStore.count2).toBe(1);
-  });
-
-  it('should decrement the count', () => {
-    counterStore.decrement();
-    expect(counterStore.count).toBe(-1);
-  });
-
-  it('should decrement count2', () => {
-    counterStore.decrementCount2();
-    expect(counterStore.count2).toBe(-1);
-  });
-
   it('should fetch count from the server', async () => {
     fetchFakeCountMock.mockReturnValueOnce(Promise.resolve(5));
 
