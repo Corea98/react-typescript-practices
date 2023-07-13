@@ -1,12 +1,5 @@
 import { action, autorun, flow, makeObservable, observable, reaction, when } from "mobx";
-
-const fetchFakeCount: () => Promise<number> = () => {
-    return new Promise(resolve => {
-        setTimeout(() => {
-            resolve(Math.floor(Math.random() * 100))
-        }, 1500);
-    })
-}
+import { fetchFakeCount } from "../util/util";
 
 class CounterStore {
     @observable count: number = 0;
